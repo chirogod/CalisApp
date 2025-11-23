@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CalisApp.MainPage">
+
+    <VerticalStackLayout Padding="30,0" Spacing="25">
+
+        <Button
+            x:Name="CounterBtn"
+            Text="Obtener Sesiones"  
+            Clicked="OnCounterClicked"
+            HorizontalOptions="Fill" />
+
+        <ActivityIndicator x:Name="loadingIndicator" 
+                           HeightRequest="30" Color="Blue" 
+                           IsRunning="False" IsVisible="False"/>
+
+        <CollectionView x:Name="sesiones">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" Margin="0,5" BackgroundColor="LightYellow">
+
+                        <Label Text="{Binding Title}" 
+                       FontSize="20" 
+                       FontAttributes="Bold" />
+
+                        <Label Text="{Binding Description}" 
+                       FontSize="14" 
+                       TextColor="Gray" />
+
+                        <Label Text="{Binding Date, StringFormat='Fecha: {0:dd/MM/yyyy HH:mm}'}" 
+                       FontSize="14" 
+                       FontAttributes="Italic" />
+
+                        <Label Text="{Binding Cupos}" 
+                       FontSize="14" 
+                       TextColor="Blue" />
+
+                        <BoxView HeightRequest="1" Color="DarkGray" Margin="0,5,0,0"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+
+</ContentPage>
