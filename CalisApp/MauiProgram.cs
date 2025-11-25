@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
-using CalisApp.Services;
+﻿using CalisApp.Services;
 using CalisApp.Services.Interfaces;
+using CalisApp.ViewModels;
+using CalisApp.Views;
+using Microsoft.Extensions.Logging;
 
 namespace CalisApp
 {
@@ -20,8 +22,15 @@ namespace CalisApp
             builder.Services.AddSingleton<ISessionService, SessionService>();
             builder.Services.AddTransient<MainPage>();
 
+            builder.Services.AddTransient<SessionDetailViewModel>();
+            builder.Services.AddTransient<SessionDetailView>();
+
+            builder.Services.AddSingleton<SessionsViewModel>(); 
+            builder.Services.AddSingleton<SessionsView>();
+
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

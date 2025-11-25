@@ -1,4 +1,4 @@
-﻿namespace CalisApi.Models.DTOs
+﻿namespace CalisApp.Models.DTOs
 {
     public class UserSessionDto
     {

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:CalisApp.Models"
+             xmlns:viewmodel="clr-namespace:CalisApp.ViewModels"
+             x:DataType="viewmodel:SessionsViewModel"
+             x:Class="CalisApp.Views.SessionsView"
+             Title="SessionsView">
+
+
+    <VerticalStackLayout Padding="30,0" Spacing="25">
+
+        <ActivityIndicator 
+            IsRunning="{Binding IsBusy}" 
+            IsVisible="{Binding IsBusy}" 
+            Color="Blue"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+
+        <CollectionView ItemsSource="{Binding Sessions}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Session">
+                    <StackLayout Padding="10" Margin="0,5" BackgroundColor="Black">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                        
+                        Command="{Binding Path=BindingContext.GoToDetailCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                        
+                        CommandParameter="{Binding .}" 
+                    />
+                        </StackLayout.GestureRecognizers>
+
+
+                        <Label Text="{Binding Id}" 
+                               FontSize="20" 
+                               FontAttributes="Bold" />
+
+                        <Label Text="{Binding Title}" 
+                               FontSize="20" 
+                               FontAttributes="Bold" />
+
+                        <Label Text="{Binding Description}" 
+                               FontSize="14" 
+                               TextColor="Gray" />
+
+                        <Label Text="{Binding Date, StringFormat='Fecha: {0:dd/MM/yyyy HH:mm}'}" 
+                               FontSize="14" 
+                               FontAttributes="Italic" />
+
+                        <Label Text="{Binding CuposDisponibles}" 
+                               FontSize="14" 
+                               TextColor="Blue" />
+
+                        <BoxView HeightRequest="1" Color="DarkGray" Margin="0,5,0,0"/>
+
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>

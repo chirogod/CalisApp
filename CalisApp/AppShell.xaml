@@ -4,11 +4,19 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CalisApp"
+    xmlns:views="clr-namespace:CalisApp.Views"
     Title="CalisApp">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    
+    <TabBar>
+        <Tab Title="Cats"
+            Icon="cat.png">
+            <ShellContent ContentTemplate="{DataTemplate views:HomeView}" />
+        </Tab>
+        <Tab Title="Dogs"
+            Icon="dog.png">
+            <ShellContent ContentTemplate="{DataTemplate views:SessionsView}" />
+        </Tab>
+    </TabBar>
 
 </Shell>

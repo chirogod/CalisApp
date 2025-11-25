@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:CalisApp.ViewModels"
+             x:DataType="viewmodel:LoginViewModel"
+             x:Class="CalisApp.LoginPage"
+             Title="Iniciar Sesión"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#002147">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto, *" 
+              
+              VerticalOptions="Fill" 
+              HorizontalOptions="Fill">
+
+            <VerticalStackLayout Grid.Row="0" 
+                                 Padding="0, 80, 0, 40" 
+                                 HorizontalOptions="Center" 
+                                 Spacing="10">
+
+                <Border WidthRequest="100" 
+                        HeightRequest="100" 
+                        StrokeShape="RoundRectangle 50" 
+                        StrokeThickness="0"
+                        BackgroundColor="#214791">
+                    <Image Source="barbell.png" 
+                           Aspect="AspectFit" 
+                           HeightRequest="60" 
+                           WidthRequest="60" 
+                           Margin="0, -5, 0, 0"
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center" />
+                </Border>
+
+                <Label Text="Calistenia Pro" 
+                       FontSize="Title" 
+                       TextColor="White" 
+                       FontAttributes="Bold" 
+                       HorizontalOptions="Center" />
+
+                <Label Text="Tu entrenamiento personalizado" 
+                       FontSize="Subtitle" 
+                       TextColor="#CCCCCC" 
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <Border Grid.Row="1"
+                    Margin="30, 0, 30, 20"
+                    Padding="25"
+                    StrokeThickness="0"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 20"
+                    VerticalOptions="Start">
+
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="5,10" Radius="15" Opacity="0.4" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="20">
+
+                    <Label Text="Email" FontAttributes="Bold" TextColor="#333333" />
+                    <Entry Placeholder="tu@email.com" 
+                           Keyboard="Email"
+                           Text="{Binding Email}"
+                           HeightRequest="50"
+                           BackgroundColor="#F0F0F0"
+                           PlaceholderColor="#AAAAAA"
+                           ClearButtonVisibility="WhileEditing">
+                        <Entry.Clip>
+                            <RoundRectangleGeometry CornerRadius="8" />
+                        </Entry.Clip>
+                    </Entry>
+
+                    <Label Text="Contraseña" FontAttributes="Bold" TextColor="#333333" />
+                    <Entry Placeholder="********" 
+                           IsPassword="True"
+                           Text="{Binding Password}"
+                           HeightRequest="50"
+                           BackgroundColor="#F0F0F0"
+                           PlaceholderColor="#AAAAAA"
+                           ClearButtonVisibility="WhileEditing">
+                        <Entry.Clip>
+                            <RoundRectangleGeometry CornerRadius="8" />
+                        </Entry.Clip>
+                    </Entry>
+
+                    <Button Text="Iniciar Sesión"
+                            HeightRequest="50"
+                            Margin="0, 15, 0, 5"
+                            TextColor="White"
+                            BackgroundColor="#007BFF" 
+                            CornerRadius="8"
+                            FontAttributes="Bold"
+                            Command="{Binding LoginCommand}" />
+
+                    <Button Text="¿Olvidaste tu contraseña?"
+                            FontSize="Small"
+                            TextColor="#007BFF" 
+                            BackgroundColor="Transparent"
+                            Margin="0, 0, 0, 10"
+                            HorizontalOptions="Center" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Versión 1.0.0" 
+                   Grid.Row="1"
+                   Margin="0, 20, 0, 20"
+                   FontSize="Small" 
+                   TextColor="#CCCCCC" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="End" />
+
+        </Grid>
+    </ScrollView>
+</ContentPage>
