@@ -10,7 +10,7 @@ namespace CalisApp.Services
 {
     public class SessionService : ISessionService
     {
-        private string UrlApi = "https://localhost:7222/api/session";
+        public const string UrlApi = "https://calisapi-b6gxc6cuf6a7apes.brazilsouth-01.azurewebsites.net/api/session";
         public async Task<IEnumerable<Session>> GetAll()
         {
             var client = new HttpClient();

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:CalisApp.ViewModels"
+             x:DataType="viewmodels:LoginViewModel"
+             x:Class="CalisApp.Views.LoginView"
+             Title="LoginView">
+    
+    <ScrollView>
+        <Grid RowDefinitions="Auto, *, Auto" 
+          Padding="30,60,30,30" 
+          RowSpacing="25">
+
+            <VerticalStackLayout Grid.Row="0" Spacing="10" Margin="0,40,0,20">
+                <Label Text="Hola"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   HorizontalOptions="Center" />
+
+                <Label Text="Ingresa a tu cuenta de CalisApp"
+                   FontSize="16"
+                   TextColor="Gray"
+                   HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1" Spacing="15" VerticalOptions="Center" >
+
+                <Border StrokeShape="RoundRectangle 12"
+                    StrokeThickness="0"
+                    BackgroundColor="#F2F2F7"
+                    Padding="15,0"
+                    HeightRequest="55">
+                    <Grid ColumnDefinitions="30, *">
+                        <Label Text="✉️" VerticalOptions="Center" FontSize="18"/>
+                        <Entry Grid.Column="1"
+                           Placeholder="Correo electrónico"
+                           Text="{Binding LoginDto.Email}"
+                           TextColor="Black"
+                           PlaceholderColor="#9aa0a6"
+                           Keyboard="Email"
+                           BackgroundColor="Transparent"
+                           HeightRequest="55" />
+                    </Grid>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 12"
+                    StrokeThickness="0"
+                    BackgroundColor="#F2F2F7"
+                    Padding="15,0"
+                    HeightRequest="55">
+                    <Grid ColumnDefinitions="30, *">
+                        <Label Text="🔒" VerticalOptions="Center" FontSize="18"/>
+                        <Entry Grid.Column="1"
+                           Placeholder="Contraseña"
+                           Text="{Binding LoginDto.Password}"
+                           IsPassword="True"
+                           TextColor="Black"
+                           PlaceholderColor="#9aa0a6"
+                           BackgroundColor="Transparent"
+                           HeightRequest="55" />
+                    </Grid>
+                </Border>
+
+
+                <Button Text="Iniciar Sesión" 
+                        Clicked="clicjing"
+                        Command="{Binding LoginCommand}"
+                    BackgroundColor="#007AFF"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="28"
+                    HeightRequest="56"
+                    Margin="0,10,0,0">
+                    <Button.Shadow>
+                        <Shadow Brush="#40007AFF"
+                            Offset="0,8"
+                            Radius="15"
+                            Opacity="0.5" />
+                    </Button.Shadow>
+                </Button>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

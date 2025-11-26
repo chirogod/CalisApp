@@ -19,6 +19,7 @@ namespace CalisApp
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<ISessionService, SessionService>();
             builder.Services.AddTransient<MainPage>();
 
@@ -27,6 +28,9 @@ namespace CalisApp
 
             builder.Services.AddSingleton<SessionsViewModel>(); 
             builder.Services.AddSingleton<SessionsView>();
+
+            builder.Services.AddSingleton<LoginViewModel>();
+            builder.Services.AddSingleton<LoginView>();
 
 
 #if DEBUG

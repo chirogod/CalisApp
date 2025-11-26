@@ -7,6 +7,7 @@ namespace CalisApp
         public AppShell()
         {
             InitializeComponent();
+            Routing.RegisterRoute("MainPage", typeof(MainPage));
             Routing.RegisterRoute("SessionDetail", typeof(SessionDetailView));
         }
     }
