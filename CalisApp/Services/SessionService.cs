@@ -1,11 +1,12 @@
-﻿using System;
+﻿using CalisApp.Models;
+using CalisApp.Models.DTOs;
+using CalisApp.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using CalisApp.Models;
-using CalisApp.Services.Interfaces;
 
 namespace CalisApp.Services
 {
@@ -69,6 +70,40 @@ namespace CalisApp.Services
 
             var jsonResponse = JsonSerializer.Deserialize<Session>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             return jsonResponse ?? new Session();
+        }
+
+        public async Task<List<SessionUserDataDto>> GetUsers(int sessionId)
+        {
+            try
+            {
+                var token = await _authService.GetTokenAsync();
+
+                var client = new HttpClient();
+                if (!string.IsNullOrEmpty(token))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                }
+
+                var response = await client.GetAsync(UrlApi + "/" + sessionId + "/Users");
+                if (!response.IsSuccessStatusCode)
+                {
+                    System.Diagnostics.Debug.WriteLine($"❌ Error al obtener usuarios: {response.StatusCode}");
+                    return new List<SessionUserDataDto>();
+                }
+
+                var responseBody = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrWhiteSpace(responseBody))
+                    return new List<SessionUserDataDto>();
+
+                var usuarios = JsonSerializer.Deserialize<List<SessionUserDataDto>>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                return usuarios ?? new List<SessionUserDataDto>();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error crítico: {ex.Message}");
+                return new List<SessionUserDataDto>();
+            }
+            
         }
     }
 }

@@ -5,58 +5,148 @@
              xmlns:viewmodel="clr-namespace:CalisApp.ViewModels"
              x:DataType="viewmodel:SessionsViewModel"
              x:Class="CalisApp.Views.SessionsView"
-             Title="SessionsView">
+             Title="Clases"
+             BackgroundColor="#F5F5F7">
 
+    <Grid RowDefinitions="Auto, *">
 
-    <VerticalStackLayout Padding="30,0" Spacing="25">
+        <CollectionView Grid.Row="0"
+                        ItemsSource="{Binding DiasCalendario}"
+                        HeightRequest="90"
+                        SelectionMode="None"
+                        Margin="0,15,0,5">
 
-        <ActivityIndicator 
-            IsRunning="{Binding IsBusy}" 
-            IsVisible="{Binding IsBusy}" 
-            Color="Blue"
-            HorizontalOptions="Center"
-            VerticalOptions="Center" />
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
 
-        <CollectionView ItemsSource="{Binding Sessions}">
+            <CollectionView.Header>
+                <BoxView WidthRequest="15" Color="Transparent"/>
+            </CollectionView.Header>
+            <CollectionView.Footer>
+                <BoxView WidthRequest="15" Color="Transparent"/>
+            </CollectionView.Footer>
+
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Session">
-                    <StackLayout Padding="10" Margin="0,5" BackgroundColor="Black">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer 
-                        
-                        Command="{Binding Path=BindingContext.GoToDetailCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                        
-                        CommandParameter="{Binding .}" 
-                    />
-                        </StackLayout.GestureRecognizers>
+                <DataTemplate x:DataType="viewmodel:FechaFilter">
+                    <Border StrokeShape="RoundRectangle 20"
+                            StrokeThickness="0"
+                            HeightRequest="70"
+                            WidthRequest="60"
+                            VerticalOptions="Center">
 
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectDateCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                  CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
 
-                        <Label Text="{Binding Id}" 
-                               FontSize="20" 
-                               FontAttributes="Bold" />
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BackgroundColor" Value="White"/>
+                                <Style.Triggers>
+                                    <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                        <Setter Property="BackgroundColor" Value="#3377FF"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
 
-                        <Label Text="{Binding Title}" 
-                               FontSize="20" 
-                               FontAttributes="Bold" />
+                        <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                            <Label Text="{Binding DiaSemana}" 
+                                   HorizontalOptions="Center" 
+                                   FontSize="12"
+                                   TextTransform="Uppercase">
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="TextColor" Value="Gray"/>
+                                        <Style.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                                                <Setter Property="TextColor" Value="#E6F0FF"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
 
-                        <Label Text="{Binding Description}" 
-                               FontSize="14" 
-                               TextColor="Gray" />
-
-                        <Label Text="{Binding Date, StringFormat='Fecha: {0:dd/MM/yyyy HH:mm}'}" 
-                               FontSize="14" 
-                               FontAttributes="Italic" />
-
-                        <Label Text="{Binding CuposDisponibles}" 
-                               FontSize="14" 
-                               TextColor="Blue" />
-
-                        <BoxView HeightRequest="1" Color="DarkGray" Margin="0,5,0,0"/>
-
-                    </StackLayout>
+                            <Label Text="{Binding DiaNumero}" 
+                                   HorizontalOptions="Center" 
+                                   FontSize="20" 
+                                   FontAttributes="Bold">
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="TextColor" Value="#333"/>
+                                        <Style.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                                                <Setter Property="TextColor" Value="White"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                        </VerticalStackLayout>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-    </VerticalStackLayout>
+
+        <CollectionView Grid.Row="1" 
+                        ItemsSource="{Binding Sessions}"
+                        Margin="0,10,0,0">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="15"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Session">
+                    <Border StrokeShape="RoundRectangle 15"
+                Stroke="#E5E7EB"
+                StrokeThickness="1"
+                BackgroundColor="White"
+                Padding="15"
+                Margin="15,5">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Path=BindingContext.GoToDetailCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                      CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+
+                        <Grid RowDefinitions="Auto, Auto, Auto, Auto" RowSpacing="5">
+                            <Grid Grid.Row="0" ColumnDefinitions="*, Auto">
+                                <Label Text="{Binding Title}" FontSize="16" TextColor="#111827" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
+                                <Label Grid.Column="1" Text="›" FontSize="24" TextColor="#9CA3AF" TranslationY="-4"/>
+                            </Grid>
+
+                            <Label Grid.Row="1" Text="{Binding Description}" FontSize="13" TextColor="#4B5563" MaxLines="2" LineBreakMode="TailTruncation"/>
+
+                            <Grid Grid.Row="2" ColumnDefinitions="Auto, 15, Auto" Margin="0,5">
+                                <HorizontalStackLayout Grid.Column="0" Spacing="4">
+                                    <Label Text="📅" FontSize="12"/>
+                                    <Label Text="{Binding Date, StringFormat='{0:dd MMM}'}" FontSize="13" TextColor="#4B5563" FontAttributes="Bold"/>
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout Grid.Column="2" Spacing="4">
+                                    <Label Text="🕒" FontSize="12"/>
+                                    <Label Text="{Binding Date, StringFormat='{0:HH:mm}'}" FontSize="13" TextColor="#4B5563" FontAttributes="Bold"/>
+                                </HorizontalStackLayout>
+                            </Grid>
+
+                            <HorizontalStackLayout Grid.Row="3" Spacing="6">
+                                <Label Text="👤" FontSize="12"/>
+                                <Label FontSize="13" TextColor="#4B5563">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding FreeSpots}" FontAttributes="Bold" TextColor="#2563EB"/>
+                                            <Span Text=" lugares disponibles"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+
 </ContentPage>

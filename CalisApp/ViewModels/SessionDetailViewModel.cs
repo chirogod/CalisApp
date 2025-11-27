@@ -2,6 +2,7 @@
 using CalisApp.Models.DTOs;
 using CalisApp.Services.Interfaces;
 using Microsoft.Maui.Controls;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
 
@@ -12,6 +13,8 @@ namespace CalisApp.ViewModels
     {
         private readonly ISessionService _sessionService;
         private readonly IAuthService _authService;
+        private ObservableCollection<SessionUserDataDto> _sessionUsers = new();
+
         private Session _session = new Session();
         private int _sessionId;
         private UserDataDto _user;
@@ -21,9 +24,25 @@ namespace CalisApp.ViewModels
         {
             _sessionService = sessionService;
             _authService = authService;
+
+            _sessionUsers = new ObservableCollection<SessionUserDataDto>();
+            _session = new Session();
+
             EnrollCommand = new Command(async () => await UserEnroll());
         }
-
+        public ObservableCollection<SessionUserDataDto> SessionUsers
+        {
+            get { return _sessionUsers; }
+            set 
+            { 
+                if(_sessionUsers != value)
+                {
+                    _sessionUsers = value;
+                    OnPropertyChanged(nameof(SessionUsers));
+                }
+                
+            }
+        }
        public Session Session
         {
             get => _session;
@@ -44,8 +63,8 @@ namespace CalisApp.ViewModels
                 if (_sessionId != value)
                 {
                     _sessionId = value;
-                    Debug.WriteLine($"✅ ID recibido para detalle: {value}");
-                    LoadSessionDetails(_sessionId);
+                    Task.Run(async () => await CargarDatos(_sessionId));
+
                 }
             }
         }
@@ -63,7 +82,14 @@ namespace CalisApp.ViewModels
 
         }
 
-        private async void LoadSessionDetails(int id)
+        private async Task CargarDatos(int id)
+        {
+            await LoadSessionDetails(id);
+            await LoadUsers(id);
+        }
+
+
+        private async Task LoadSessionDetails(int id)
         {
             if (id == 0) return;
 
@@ -90,6 +116,26 @@ namespace CalisApp.ViewModels
             }
         }
 
+        private async Task LoadUsers(int id)
+        {
+            try
+            {
+                var users = await _sessionService.GetUsers(id);
+
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    SessionUsers.Clear();
+                    foreach (var user in users)
+                    {
+                        SessionUsers.Add(user);
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"❌ Error cargando usuarios: {e.Message}");
+            }
+        }
         public async Task UserEnroll()
         {
             
@@ -105,6 +151,7 @@ namespace CalisApp.ViewModels
             {
                 await _sessionService.Enroll(User.Id, SessionId);
                 Debug.WriteLine($"ENRROL SATISFACTORIO");
+                await CargarDatos(SessionId);
             }
             catch (Exception ex)
             {
@@ -113,5 +160,6 @@ namespace CalisApp.ViewModels
 
 
         }
+
     }
 }

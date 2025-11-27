@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:CalisApp.ViewModels"
              xmlns:models="clr-namespace:CalisApp.Models"
+             xmlns:modelsDto="clr-namespace:CalisApp.Models.DTOs"
              x:DataType="viewmodel:SessionDetailViewModel"
              x:Class="CalisApp.Views.SessionDetailView"
              Title="Detalle de Clase"
@@ -73,33 +74,49 @@
                 </VerticalStackLayout>
             </Border>
 
-            <Border BackgroundColor="White" Margin="15, 0" Padding="20" StrokeShape="RoundRectangle 10">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="{Binding Session.Enrolled, StringFormat='Alumnos Anotados ({0})'}" 
-                           FontAttributes="Bold" FontSize="Medium" />
+            <Border BackgroundColor="White" Margin="15, 0" Padding="20" StrokeShape="RoundRectangle 15" HeightRequest="230">
 
-                    <CollectionView ItemsSource="{Binding Users}" HeightRequest="150">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="models:User">
-                                <Grid ColumnDefinitions="Auto, *">
-                                    <Border WidthRequest="40" HeightRequest="40" 
-                                            StrokeShape="RoundRectangle 20" 
-                                            BackgroundColor="#D1E0FF"
-                                            Margin="0, 5" Grid.Column="0" HorizontalOptions="Center">
-                                        <Label Text="{Binding User.Id}" 
-                                               TextColor="#1E39D2" 
-                                               FontSize="Small" 
-                                               VerticalOptions="Center" 
-                                               HorizontalOptions="Center" />
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.05"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="15">
+
+                    <Label Text="{Binding Session.Enrolled, StringFormat='Alumnos Anotados ({0})'}" 
+                           FontAttributes="Bold" 
+                           FontSize="16"
+                           TextColor="#111827"/>
+
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding SessionUsers}" Spacing="8">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="modelsDto:SessionUserDataDto">
+                                <Grid ColumnDefinitions="45, *">
+                                    <Border Grid.Column="0"
+                                            HeightRequest="40"
+                                            WidthRequest="40"
+                                            StrokeShape="RoundRectangle 20"
+                                            StrokeThickness="0" 
+                                            BackgroundColor="#E6F0FF"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center">
+
+                                        <Label Text="👤" 
+                                              HorizontalOptions="Center" 
+                                              VerticalOptions="Center" 
+                                              FontSize="18"/>
                                     </Border>
-                                    <Label Text="{Binding User.FullName}" 
-                                           Grid.Column="1" 
-                                           VerticalOptions="Center" 
-                                           Margin="10, 0" />
+
+                                    <Label Grid.Column="1"
+                                           Text="{Binding FullName}"
+                                           TextColor="#374151"
+                                           FontSize="15"
+                                           VerticalOptions="Center"
+                                           Margin="10,0,0,0"/>
                                 </Grid>
                             </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+
                 </VerticalStackLayout>
             </Border>
 
