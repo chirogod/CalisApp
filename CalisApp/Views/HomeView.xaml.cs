@@ -1,9 +1,12 @@
+using CalisApp.ViewModels;
+
 namespace CalisApp.Views;
 
 public partial class HomeView : ContentPage
 {
-	public HomeView()
+	public HomeView(HomeViewModel viewmodel)
 	{
 		InitializeComponent();
+		this.BindingContext = viewmodel;
 	}
 }

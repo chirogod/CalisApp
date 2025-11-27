@@ -3,6 +3,7 @@ using CalisApp.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
@@ -45,24 +46,21 @@ namespace CalisApp.Services
                 {
                     string token = string.Empty;
 
-                    // OPCIÓN A: Si la respuesta empieza con '{', es un JSON
                     if (responseContent.Trim().StartsWith("{"))
                     {
                         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                         var loginResponse = JsonSerializer.Deserialize<LoginResponse>(responseContent, options);
                         token = loginResponse?.Token;
                     }
-                    // OPCIÓN B: Si no es JSON, asumimos que ES el token directamente
                     else
                     {
-                        // Quitamos comillas dobles si vienen (ej: "eyJ...")
                         token = responseContent.Trim('"');
                     }
 
-                    // Si conseguimos un token válido, lo guardamos
                     if (!string.IsNullOrEmpty(token))
                     {
                         await SecureStorage.SetAsync(AuthConstants.TokenKey, token);
+                        await GuardarDatosDelToken(token);
                         return true;
                     }
                 }
@@ -86,5 +84,37 @@ namespace CalisApp.Services
             SecureStorage.Remove(AuthConstants.TokenKey);
         }
 
+        private async Task GuardarDatosDelToken(string tokenString)
+        {
+            var handler = new JwtSecurityTokenHandler();
+
+            var jwtToken = handler.ReadJwtToken(tokenString);
+
+            var sesion = new UserDataDto
+            {
+                Id = jwtToken.Claims.FirstOrDefault(a => a.Type == "nameid")?.Value,
+                FullName = jwtToken.Claims.FirstOrDefault(a => a.Type == "unique_name")?.Value,
+                Email = jwtToken.Claims.FirstOrDefault(a => a.Type == "email")?.Value,
+                Role = jwtToken.Claims.FirstOrDefault(a => a.Type == "role")?.Value,
+                ExpirationDate = jwtToken.ValidTo
+            };
+
+            string jsonSesion = JsonSerializer.Serialize(sesion);
+            await SecureStorage.SetAsync("user_session", jsonSesion);
+
+            Debug.WriteLine($"LEYENDO TOKEN");
+            Debug.WriteLine($"👤 ID: {sesion.Id}");
+            Debug.WriteLine($"👤 Nombre: {sesion.FullName}");
+            Debug.WriteLine($"📧 Email: {sesion.Email}");
+            Debug.WriteLine($"🛡️ Rol: {sesion.Role}");
+            Debug.WriteLine($"❌ Expira: {sesion.ExpirationDate}");
+        }
+        public async Task<UserDataDto> ObtenerSesion()
+        {
+            var jsonSesion = await SecureStorage.GetAsync("user_session");
+            if (string.IsNullOrEmpty(jsonSesion)) return null;
+
+            return JsonSerializer.Deserialize<UserDataDto>(jsonSesion);
+        }
     }
 }

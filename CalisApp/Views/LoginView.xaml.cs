@@ -12,9 +12,5 @@ public partial class LoginView : ContentPage
 		InitializeComponent(); 
 		this.BindingContext = login;
     }
-
-    private void clicjing(object sender, EventArgs e)
-    {
-        Debug.WriteLine("clickinng login button");
-    }
+    
 }

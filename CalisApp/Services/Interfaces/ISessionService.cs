@@ -10,5 +10,7 @@ namespace CalisApp.Services.Interfaces
         Task<IEnumerable<Session>> GetAll();
 
         Task<Session> GetSession(int sessionId);
+
+        Task<Session> Enroll(string userId, int sessionId);
     }
 }

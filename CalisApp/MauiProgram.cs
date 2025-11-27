@@ -21,7 +21,9 @@ namespace CalisApp
 
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<ISessionService, SessionService>();
-            builder.Services.AddTransient<MainPage>();
+
+            builder.Services.AddTransient<HomeViewModel>();
+            builder.Services.AddTransient<HomeView>();
 
             builder.Services.AddTransient<SessionDetailViewModel>();
             builder.Services.AddTransient<SessionDetailView>();

@@ -5,16 +5,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CalisApp"
     xmlns:views="clr-namespace:CalisApp.Views"
-    Title="CalisApp">
+    Title="CalisApp" Shell.NavBarIsVisible="False">
 
     
     <TabBar>
-        <Tab Title="Cats"
-            Icon="cat.png">
+        <Tab Title="Home"
+            Icon="home32x32.png">
             <ShellContent ContentTemplate="{DataTemplate views:HomeView}" />
         </Tab>
-        <Tab Title="Dogs"
-            Icon="dog.png">
+        <Tab Title="Clases"
+             Icon="clases32x32.png">
+             <ShellContent ContentTemplate="{DataTemplate views:SessionsView}" />
+        </Tab>
+        <Tab Title="Ejercicios"
+             Icon="video32x32.png">
+            <ShellContent ContentTemplate="{DataTemplate views:SessionsView}" />
+        </Tab>
+        <Tab Title="Perfil"
+             Icon="perfil32x32.png">
             <ShellContent ContentTemplate="{DataTemplate views:SessionsView}" />
         </Tab>
     </TabBar>

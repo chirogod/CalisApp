@@ -64,11 +64,9 @@ namespace CalisApp.ViewModels
             }
             else
             {
-                Debug.WriteLine($"XXXX login fallixo");
+                Debug.WriteLine($"Login fallido");
                 ErrorMessage = "Email o contrasena incorrectos.";
             }
         }
-
-
     }
 }

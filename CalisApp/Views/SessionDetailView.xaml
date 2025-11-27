@@ -24,21 +24,21 @@
                            FontSize="Title" TextColor="White" FontAttributes="Bold" />
 
                     <HorizontalStackLayout Grid.Row="2" Grid.Column="0" Spacing="5" Margin="0, 5, 0, 0">
-                        <Image Source="{FontImageSource Glyph='&#xf017;', FontFamily=FontAwesome, Color=White}" 
+                        <Image Source="{FontImageSource Glyph='&#xf017;', Color=White}" 
                                HeightRequest="16" />
                         <Label Text="{Binding Session.Date}" 
                                TextColor="White" FontSize="14" />
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Grid.Row="2" Grid.Column="1" Spacing="5" Margin="0, 5, 0, 0" HorizontalOptions="End">
-                        <Image Source="{FontImageSource Glyph='&#xf3c5;', FontFamily=FontAwesome, Color=White}" 
+                        <Image Source="{FontImageSource Glyph='&#xf3c5;', Color=White}" 
                                HeightRequest="16" />
                         <Label Text="Polideportivo, Lujan." 
                                TextColor="White" FontSize="14" />
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Grid.Row="0" Grid.Column="1" Spacing="5" Margin="0, 5, 0, 0">
-                        <Image Source="{FontImageSource Glyph='&#xf254;', FontFamily=FontAwesome, Color=White}" 
+                        <Image Source="{FontImageSource Glyph='&#xf254;', Color=White}" 
                                HeightRequest="16" />
                         <Label Text="90 min" 
                                TextColor="White" FontSize="14" />
@@ -61,7 +61,6 @@
 
                         <Label Text="{Binding Session.Spots}" 
                                FontSize="Medium"  TextColor="black"
-                               FontFamily="FontAwesome"
                                Grid.Column="1" />       
                     </Grid>
 
