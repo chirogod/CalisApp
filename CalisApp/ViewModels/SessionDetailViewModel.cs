@@ -18,7 +18,10 @@ namespace CalisApp.ViewModels
         private Session _session = new Session();
         private int _sessionId;
         private UserDataDto _user;
+        private bool _enrollButtonVisible = true;
+        private bool _unEnrollButtonVisible = false;
         public ICommand EnrollCommand { get; set; }
+        public ICommand UnEnrollCommand { get; set; }
 
         public SessionDetailViewModel(ISessionService sessionService, IAuthService authService)
         {
@@ -28,7 +31,9 @@ namespace CalisApp.ViewModels
             _sessionUsers = new ObservableCollection<SessionUserDataDto>();
             _session = new Session();
 
+
             EnrollCommand = new Command(async () => await UserEnroll());
+            UnEnrollCommand = new Command(async () => await UserUnEnroll());
         }
         public ObservableCollection<SessionUserDataDto> SessionUsers
         {
@@ -68,6 +73,30 @@ namespace CalisApp.ViewModels
                 }
             }
         }
+        public bool EnrollButtonVisible
+        {
+            get => _enrollButtonVisible;
+            set
+            {
+                if (value != _enrollButtonVisible)
+                {
+                    _enrollButtonVisible = value;
+                    OnPropertyChanged(nameof(EnrollButtonVisible));
+                }
+            }
+        }
+        public bool UnEnrollButtonVisible
+        {
+            get => _unEnrollButtonVisible;
+            set
+            {
+                if (value != _unEnrollButtonVisible)
+                {
+                    _unEnrollButtonVisible = value;
+                    OnPropertyChanged(nameof(UnEnrollButtonVisible));
+                }
+            }
+        }
         public UserDataDto User
         {
             get => _user;
@@ -85,7 +114,6 @@ namespace CalisApp.ViewModels
         private async Task CargarDatos(int id)
         {
             await LoadSessionDetails(id);
-            await LoadUsers(id);
         }
 
 
@@ -95,14 +123,26 @@ namespace CalisApp.ViewModels
 
             try
             {
-                var fetchedSession = await _sessionService.GetSession(id);
+                var fetchedSession = await _sessionService.GetSessionFullDetails(id);
+                var SessionUser = await _authService.ObtenerSesion();
+                int UserId = int.Parse(SessionUser.Id);
 
                 if (fetchedSession != null)
                 {
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
-                        Session = fetchedSession;
+                        Session = fetchedSession.Session;
+                        SessionUsers.Clear();
+                        foreach (var user in fetchedSession.EnrolledUsers)
+                        {
+                            SessionUsers.Add(user);
+                        }
+
+                        EnrollButtonVisible = !fetchedSession.EnrolledUsers.Any(p => p.Id == UserId);
+                        UnEnrollButtonVisible = fetchedSession.EnrolledUsers.Any(p => p.Id == UserId);
+
                         Debug.WriteLine($"✅ Detalles de sesión {id} cargados con éxito. spots: {Session.Spots} - percent: {Session.EnrollPercent}");
+
                     });
                 }
                 else
@@ -116,26 +156,6 @@ namespace CalisApp.ViewModels
             }
         }
 
-        private async Task LoadUsers(int id)
-        {
-            try
-            {
-                var users = await _sessionService.GetUsers(id);
-
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    SessionUsers.Clear();
-                    foreach (var user in users)
-                    {
-                        SessionUsers.Add(user);
-                    }
-                });
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine($"❌ Error cargando usuarios: {e.Message}");
-            }
-        }
         public async Task UserEnroll()
         {
             
@@ -151,15 +171,51 @@ namespace CalisApp.ViewModels
             {
                 await _sessionService.Enroll(User.Id, SessionId);
                 Debug.WriteLine($"ENRROL SATISFACTORIO");
-                await CargarDatos(SessionId);
+                var me = new SessionUserDataDto
+                {
+                    Id = int.Parse(sesionData.Id),
+                    FullName = sesionData.FullName 
+                };
+                SessionUsers.Add(me);
+
+                EnrollButtonVisible = false;
+                UnEnrollButtonVisible = true;
+                Session.Enrolled++;
+                OnPropertyChanged(nameof(Session));
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"ERROR EN EL ENROLL: {ex.Message}");
             }
-
-
         }
+
+        public async Task UserUnEnroll()
+        {
+            var sesionData = await _authService.ObtenerSesion();
+            Debug.WriteLine($"INTENTANDO UNROLL de user {sesionData.Id} de la sesion {SessionId} ");
+            try
+            {
+                await _sessionService.UnEnroll(SessionId);
+                Debug.WriteLine($"UNENRROL SATISFACTORIO");
+                var userToRemove = SessionUsers.FirstOrDefault(u => u.Id == int.Parse(sesionData.Id));
+
+                if (userToRemove != null)
+                {
+                    SessionUsers.Remove(userToRemove);
+                }
+                ;
+                UnEnrollButtonVisible = false;
+                EnrollButtonVisible = true;
+                Session.Enrolled--;
+                OnPropertyChanged(nameof(Session));
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine($"ERROR EN EL UNENROLL: {ex.Message}");
+            }
+            
+        }
+
 
     }
 }

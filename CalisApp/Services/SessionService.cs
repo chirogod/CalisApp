@@ -44,6 +44,28 @@ namespace CalisApp.Services
             return sesion ?? new Session();
         }
 
+        public async Task<SessionFullDetailDto> GetSessionFullDetails(int sessionId)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync(UrlApi + "/" + sessionId + "/details");
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"La API fallo con estado {response.StatusCode}. Respuesta: {responseBody}");
+            }
+            try
+            {
+                var sesion = JsonSerializer.Deserialize<SessionFullDetailDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                return sesion ?? new SessionFullDetailDto();
+            }
+            catch (JsonException)
+            {
+                throw new Exception($"Error parseando JSON: {responseBody}");
+            }
+        }
+
         public async Task<Session> Enroll(string userId, int sessionId)
         {
 
@@ -65,11 +87,41 @@ namespace CalisApp.Services
             );
 
             var response = await client.PostAsync(UrlApi+"/enroll", jsonContent);
-
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var jsonResponse = JsonSerializer.Deserialize<Session>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            return jsonResponse ?? new Session();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"La API fallo con estado {response.StatusCode}. Respuesta: {responseBody}");
+            }
+
+
+            try
+            {
+                var jsonResponse = JsonSerializer.Deserialize<Session>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                return jsonResponse ?? new Session();
+            }
+            catch (JsonException)
+            {
+                throw new Exception($"Error parseando JSON: {responseBody}");
+            }
+        }
+
+        public async Task UnEnroll(int sessionId) 
+        {
+            var token = await _authService.GetTokenAsync();
+            HttpClient client = new HttpClient();
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
+
+            var response = await client.DeleteAsync(UrlApi + $"/{sessionId}");
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"La API fallo con estado {response.StatusCode}. Respuesta: {responseBody}");
+            }
         }
 
         public async Task<List<SessionUserDataDto>> GetUsers(int sessionId)

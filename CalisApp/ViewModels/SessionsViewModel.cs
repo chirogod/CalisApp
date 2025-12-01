@@ -157,7 +157,7 @@ namespace CalisApp.ViewModels
 
             await MainThread.InvokeOnMainThreadAsync(async () =>
             {
-                string route = $"SessionDetail?Id={session.Id}";
+                 string route = $"SessionDetail?Id={session.Id}";
                 await Shell.Current.GoToAsync(route);
             });
         }
