@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:CalisApp.ViewModels"
+             xmlns:modelsDto="clr-namespace:CalisApp.Models.DTOs"
+             x:DataType="viewmodel:ProfileViewModel"
+             x:Class="CalisApp.Views.ProfileView"
+             Title="ProfileView">
+    <ScrollView>
+        <VerticalStackLayout Spacing="15">
+            <Border StrokeThickness="0"
+                    BackgroundColor="#0055FF"
+                    Padding="25,30,25,30"
+                    Margin="0,0,0,20">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0,0,30,30"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="25">
+
+                    <Grid ColumnDefinitions="*, Auto">
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label Text="¡Hola!" 
+                                   TextColor="#E6F0FF" 
+                                   FontSize="14"/>
+                            <Label Text="Augusto Rolandelli" 
+                                   TextColor="White" 
+                                   FontSize="22" 
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+
+                        <Border Grid.Column="1" 
+                                StrokeShape="RoundRectangle 25"
+                                HeightRequest="50" 
+                                WidthRequest="50"
+                                BackgroundColor="#3377FF"
+                                StrokeThickness="0">
+
+                            <Image WidthRequest="24" Source="perfil32x32.png"/>
+
+                        </Border>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+
+                        <Border BackgroundColor="#3377FF" 
+                                StrokeThickness="0" 
+                                Padding="15" Grid.Column="0"
+                                StrokeShape="RoundRectangle 15">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="📈 Nivel" TextColor="#E6F0FF" FontSize="12"/>
+                                <Label Text="Principiante" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border BackgroundColor="#3377FF" 
+                                StrokeThickness="0" 
+                                Padding="15" Grid.Column="1"
+                                StrokeShape="RoundRectangle 15">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="📅 Rutina" TextColor="#E6F0FF" FontSize="12"/>
+                                <Label Text="4 dias" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <VerticalStackLayout Spacing="20" Padding="30">
+
+                <Button Text="Cerrar Sesion"
+                    Command="{Binding LogoutCommand}"
+                    BackgroundColor="Red"
+                    TextColor="White"
+                    HeightRequest="55"
+                    CornerRadius="8"
+                    FontAttributes="Bold"
+                    Margin="15, 10, 15, 30" />
+
+            </VerticalStackLayout>
+
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

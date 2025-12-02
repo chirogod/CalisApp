@@ -41,7 +41,7 @@ namespace CalisApp.Services
                 var jsonContent = JsonContent.Create(loginRequest);
                 var response = await _httpClient.PostAsync("api/user/login", jsonContent);
                 var responseContent = await response.Content.ReadAsStringAsync();
-                Debug.WriteLine($"🌐 RESPUESTA API: {responseContent}");
+                Debug.WriteLine($"RESPUESTA API: {responseContent}");
                 if (response.IsSuccessStatusCode)
                 {
                     string token = string.Empty;
@@ -64,12 +64,12 @@ namespace CalisApp.Services
                         return true;
                     }
                 }
-                Debug.WriteLine($"❌ Error Login: {response.StatusCode} - {responseContent}");
+                Debug.WriteLine($"Error Login: {response.StatusCode} - {responseContent}");
                 return false;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Ocurrió un error inesperado al iniciar sesión: {ex.Message}");
+                Debug.WriteLine($"Ocurrio un error inesperado al iniciar sesion: {ex.Message}");
                 return false;
             }
         }
@@ -103,11 +103,11 @@ namespace CalisApp.Services
             await SecureStorage.SetAsync("user_session", jsonSesion);
 
             Debug.WriteLine($"LEYENDO TOKEN");
-            Debug.WriteLine($"👤 ID: {sesion.Id}");
-            Debug.WriteLine($"👤 Nombre: {sesion.FullName}");
-            Debug.WriteLine($"📧 Email: {sesion.Email}");
-            Debug.WriteLine($"🛡️ Rol: {sesion.Role}");
-            Debug.WriteLine($"❌ Expira: {sesion.ExpirationDate}");
+            Debug.WriteLine($"ID: {sesion.Id}");
+            Debug.WriteLine($"Nombre: {sesion.FullName}");
+            Debug.WriteLine($"Email: {sesion.Email}");
+            Debug.WriteLine($"Rol: {sesion.Role}");
+            Debug.WriteLine($"Expira: {sesion.ExpirationDate}");
         }
         public async Task<UserDataDto> ObtenerSesion()
         {

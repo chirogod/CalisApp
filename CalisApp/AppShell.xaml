@@ -23,7 +23,7 @@
         </Tab>
         <Tab Title="Perfil"
              Icon="perfil32x32.png">
-            <ShellContent ContentTemplate="{DataTemplate views:SessionsView}" />
+            <ShellContent ContentTemplate="{DataTemplate views:ProfileView}" />
         </Tab>
     </TabBar>
 
