@@ -8,7 +8,6 @@ namespace CalisApp
         {
             InitializeComponent();
             Routing.RegisterRoute("SessionDetail", typeof(SessionDetailView));
-            Routing.RegisterRoute("Login", typeof(LoginView));
         }
     }
 }

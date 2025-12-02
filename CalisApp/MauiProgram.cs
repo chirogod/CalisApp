@@ -34,8 +34,8 @@ namespace CalisApp
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<LoginView>();
 
-            builder.Services.AddSingleton<ProfileViewModel>();
-            builder.Services.AddSingleton<ProfileView>();
+            builder.Services.AddTransient<ProfileViewModel>();
+            builder.Services.AddTransient<ProfileView>();
 
 
 #if DEBUG
