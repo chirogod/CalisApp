@@ -100,11 +100,11 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Session">
                     <Border StrokeShape="RoundRectangle 15"
-                Stroke="#E5E7EB"
-                StrokeThickness="1"
-                BackgroundColor="White"
-                Padding="15"
-                Margin="15,5">
+                            Stroke="#E5E7EB"
+                            StrokeThickness="1"
+                            BackgroundColor="White"
+                            Padding="15"
+                            Margin="15,5">
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding Path=BindingContext.GoToDetailCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                                       CommandParameter="{Binding .}" />

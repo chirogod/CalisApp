@@ -13,8 +13,7 @@ namespace CalisApp.Services.Interfaces
 
         Task<Session> GetSession(int sessionId);
         Task<SessionFullDetailDto> GetSessionFullDetails(int sessionId);
-        Task<Session> Enroll(string userId, int sessionId);
-        Task UnEnroll(int sessionId);
+        
         Task<List<SessionUserDataDto>> GetUsers(int sessionId);
     }
 }

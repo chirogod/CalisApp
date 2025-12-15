@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CalisApp.Views.VideoDetailView"
+             xmlns:viewmodel="clr-namespace:CalisApp.ViewModels"
+             xmlns:models="clr-namespace:CalisApp.Models"
+             xmlns:modelsDto="clr-namespace:CalisApp.Models.DTOs"
+             x:DataType="viewmodel:VideoDetailViewModel"
+             Title="VideoDetailView" BackgroundColor="#F0F0F0">
+    <ScrollView>
+        <VerticalStackLayout Spacing="15">
+            <Border StrokeThickness="0"
+                BackgroundColor="#0055FF"
+                Padding="25,30,25,30"
+                Margin="0,0,0,10">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0,0,30,30"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="25">
+
+                    <Grid RowDefinitions="*, Auto">
+                        <VerticalStackLayout VerticalOptions="Center" Grid.Row="0">
+                            <Label Text="{Binding video.Title}" 
+                               TextColor="White" 
+                               FontSize="22" 
+                               FontAttributes="Bold"/>
+                            <Label Text="aaaa" 
+   TextColor="White" 
+   FontSize="22" 
+   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout VerticalOptions="Center" Grid.Row="1">
+                            <Label Text="{Binding video.Description}" 
+                               TextColor="White" 
+                               FontSize="14" 
+                               FontAttributes="None"/>
+                        </VerticalStackLayout>
+
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -29,7 +29,7 @@
                                 BackgroundColor="#3377FF"
                                 StrokeThickness="0">
 
-                            <Image WidthRequest="40" Source="perfil32x32.png"/>
+                            <Image WidthRequest="40" Source="perfil48x48.png"/>
 
                         </Border>
                     </Grid>
@@ -47,10 +47,26 @@
                 </VerticalStackLayout>
             </Border>
 
+            <VerticalStackLayout Spacing="20" Padding="30, 0">
+
+                <Button Text="Descargar rutina personalizada" ImageSource="download32x32.png"
+                        Command="{Binding DownloadRoutineCommand}"
+                        BackgroundColor="#007BFF"
+                        TextColor="White"
+                        HeightRequest="55"
+                        CornerRadius="8"
+                        FontAttributes="Bold"
+                        Margin="15, 0, 15, 0" />
+
+            </VerticalStackLayout>
+
             <Border StrokeThickness="0"
                     BackgroundColor="#fff"
                     Padding="20 40"
-                    Margin="30">
+                    Margin="30" >
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="25"/>
+                </Border.StrokeShape>
                 <VerticalStackLayout Spacing="10">
 
                     <Label Text="Información Personal"
@@ -62,7 +78,7 @@
                     <BoxView HeightRequest="1" Color="#EEEEEE" />
 
                     <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
-                        <Image Source="clases32x32.png"/>
+                        <Image Source="email32x32.png"/>
 
                         <VerticalStackLayout Spacing="2">
                             <Label Text="Email" TextColor="#666666" FontSize="12" />
@@ -71,7 +87,7 @@
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
-                        <Image Source="perfil32x32.png"/>
+                        <Image Source="phone32x32.png"/>
 
                         <VerticalStackLayout Spacing="2">
                             <Label Text="Telefono" TextColor="#666666" FontSize="12" />
@@ -80,7 +96,7 @@
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
-                        <Image Source="home32x32.png"/>
+                        <Image Source="date32x32.png"/>
 
                         <VerticalStackLayout Spacing="2">
                             <Label Text="Fecha de Nacimiento" TextColor="#666666" FontSize="12" />

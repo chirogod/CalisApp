@@ -12,6 +12,7 @@ namespace CalisApp.ViewModels
     public partial class SessionDetailViewModel : BaseViewModel
     {
         private readonly ISessionService _sessionService;
+        private readonly IUserSessionService _userSessionService;
         private readonly IAuthService _authService;
         private ObservableCollection<SessionUserDataDto> _sessionUsers = new();
 
@@ -23,10 +24,11 @@ namespace CalisApp.ViewModels
         public ICommand EnrollCommand { get; set; }
         public ICommand UnEnrollCommand { get; set; }
 
-        public SessionDetailViewModel(ISessionService sessionService, IAuthService authService)
+        public SessionDetailViewModel(ISessionService sessionService, IAuthService authService, IUserSessionService userSessionServic)
         {
             _sessionService = sessionService;
             _authService = authService;
+            _userSessionService = userSessionServic;
 
             _sessionUsers = new ObservableCollection<SessionUserDataDto>();
             _session = new Session();
@@ -169,7 +171,7 @@ namespace CalisApp.ViewModels
             Debug.WriteLine($"INICIANDO ENRROLL - USER: {User.Id} - SESSION: {SessionId}");
             try
             {
-                await _sessionService.Enroll(User.Id, SessionId);
+                await _userSessionService.Enroll(User.Id, SessionId);
                 Debug.WriteLine($"ENRROL SATISFACTORIO");
                 var me = new SessionUserDataDto
                 {
@@ -195,7 +197,7 @@ namespace CalisApp.ViewModels
             Debug.WriteLine($"INTENTANDO UNROLL de user {sesionData.Id} de la sesion {SessionId} ");
             try
             {
-                await _sessionService.UnEnroll(SessionId);
+                await _userSessionService.UnEnroll(SessionId);
                 Debug.WriteLine($"UNENRROL SATISFACTORIO");
                 var userToRemove = SessionUsers.FirstOrDefault(u => u.Id == int.Parse(sesionData.Id));
 

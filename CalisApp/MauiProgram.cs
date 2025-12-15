@@ -20,7 +20,10 @@ namespace CalisApp
                 });
 
             builder.Services.AddSingleton<IAuthService, AuthService>();
+            builder.Services.AddSingleton<IUserSessionService, UserSessionService>();
             builder.Services.AddSingleton<ISessionService, SessionService>();
+            builder.Services.AddSingleton<IVideoService, VideoService>();
+            builder.Services.AddSingleton<ICategoryService, CategoryService>();
 
             builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddTransient<HomeView>();
@@ -36,6 +39,12 @@ namespace CalisApp
 
             builder.Services.AddTransient<ProfileViewModel>();
             builder.Services.AddTransient<ProfileView>();
+
+            builder.Services.AddTransient<VideosViewModel>();
+            builder.Services.AddTransient<VideosView>();
+
+            builder.Services.AddTransient<VideoDetailViewModel>();
+            builder.Services.AddTransient<VideoDetailView>();
 
 
 #if DEBUG
