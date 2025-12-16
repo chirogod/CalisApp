@@ -4,77 +4,98 @@
              xmlns:viewmodel="clr-namespace:CalisApp.ViewModels"
              x:DataType="viewmodel:HomeViewModel"
              x:Class="CalisApp.Views.HomeView"
-
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#F5F5F5">
+             BackgroundColor="#1a3029">
+
+    <ContentPage.Resources>
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="BackgroundColor" Value="#2d453d"/>
+            <Setter Property="Stroke" Value="#4d6b5e"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="StrokeShape" Value="RoundRectangle 20"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Shadow">
+                <Setter.Value>
+                    <Shadow Brush="Black" Offset="0,4" Radius="5" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
     <ScrollView>
         <VerticalStackLayout Spacing="0">
 
             <Border StrokeThickness="0"
-                    BackgroundColor="#0055FF"
-                    Padding="25,30,25,30"
+                    BackgroundColor="#233831"
+                    Padding="25,40,25,40"
                     Margin="0,0,0,20">
-
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="0,0,30,30"/>
                 </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="#facc43" Offset="0,5" Radius="20" Opacity="0.15"/>
+                </Border.Shadow>
 
                 <VerticalStackLayout Spacing="25">
 
                     <Grid ColumnDefinitions="*, Auto">
                         <VerticalStackLayout VerticalOptions="Center">
                             <Label Text="¡Hola!" 
-                                   TextColor="#E6F0FF" 
-                                   FontSize="14"/>
+                                   TextColor="#facc43" 
+                                   FontSize="16"
+                                   FontAttributes="Bold"/>
                             <Label Text="{Binding Usuario.FullName}" 
                                    TextColor="White" 
-                                   FontSize="22" 
+                                   FontSize="24" 
                                    FontAttributes="Bold"/>
                         </VerticalStackLayout>
 
                         <Border Grid.Column="1" 
                                 StrokeShape="RoundRectangle 25"
-                                HeightRequest="50" 
-                                WidthRequest="50"
-                                BackgroundColor="#3377FF"
-                                StrokeThickness="0">
-                            
-                            <Image WidthRequest="24" Source="perfil32x32.png"/>
+                                HeightRequest="54" 
+                                WidthRequest="54"
+                                Stroke="#facc43"
+                                StrokeThickness="2"
+                                BackgroundColor="Transparent">
 
+                            <Image WidthRequest="24" Source="perfil32x32.png"/>
                         </Border>
                     </Grid>
 
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
 
-                        <Border BackgroundColor="#3377FF" 
-                                StrokeThickness="0" 
-                                Padding="15" Grid.Column="0"
+                        <Border BackgroundColor="#2d453d" 
+                                Stroke="#facc43"
+                                StrokeThickness="1" 
+                                Padding="15" 
+                                Grid.Column="0"
                                 StrokeShape="RoundRectangle 15">
                             <VerticalStackLayout Spacing="5">
-                                <Label Text="📈 Nivel" TextColor="#E6F0FF" FontSize="12"/>
+                                <Label Text="📈 Nivel" TextColor="#8ca096" FontSize="12"/>
                                 <Label Text="Principiante" TextColor="White" FontSize="16" FontAttributes="Bold"/>
                             </VerticalStackLayout>
                         </Border>
 
-                        <Border BackgroundColor="#3377FF" 
-                                StrokeThickness="0" 
-                                Padding="15" Grid.Column="1"
+                        <Border BackgroundColor="#2d453d" 
+                                Stroke="#facc43"
+                                StrokeThickness="1" 
+                                Padding="15" 
+                                Grid.Column="1"
                                 StrokeShape="RoundRectangle 15">
                             <VerticalStackLayout Spacing="5">
-                                <Label Text="📅 Rutina" TextColor="#E6F0FF" FontSize="12"/>
-                                <Label Text="4 dias" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+                                <Label Text="📅 Rutina" TextColor="#8ca096" FontSize="12"/>
+                                <Label Text="4 días" TextColor="White" FontSize="16" FontAttributes="Bold"/>
                             </VerticalStackLayout>
                         </Border>
                     </Grid>
                 </VerticalStackLayout>
             </Border>
 
-
             <VerticalStackLayout Padding="25,0,25,25" Spacing="15">
 
                 <Label Text="Acceso Rápido" 
-                       TextColor="#333333" 
-                       FontSize="16"
+                       TextColor="#facc43" 
+                       FontSize="18"
                        FontAttributes="Bold"/>
 
                 <Grid ColumnDefinitions="*,*" 
@@ -84,40 +105,44 @@
 
                     <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource CardStyle}">
                         <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
-                            <Label Text="📅" FontSize="30" HorizontalOptions="Center"/>
+                            <Label Text="📅" FontSize="34" HorizontalOptions="Center"/>
                             <Label Text="Anotarse a&#10;Clases" 
-                                   TextColor="#333" 
+                                   TextColor="White" 
                                    FontSize="14" 
+                                   FontAttributes="Bold"
                                    HorizontalTextAlignment="Center"/>
                         </VerticalStackLayout>
                     </Border>
 
                     <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource CardStyle}">
                         <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
-                            <Label Text="🏋️" FontSize="30" HorizontalOptions="Center"/>
+                            <Label Text="🏋️" FontSize="34" HorizontalOptions="Center"/>
                             <Label Text="Mi Rutina" 
-                                   TextColor="#333" 
+                                   TextColor="White" 
                                    FontSize="14" 
+                                   FontAttributes="Bold"
                                    HorizontalTextAlignment="Center"/>
                         </VerticalStackLayout>
                     </Border>
 
                     <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource CardStyle}">
                         <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
-                            <Label Text="▶️" FontSize="30" HorizontalOptions="Center"/>
+                            <Label Text="▶️" FontSize="34" HorizontalOptions="Center"/>
                             <Label Text="Videos" 
-                                   TextColor="#333" 
+                                   TextColor="White" 
                                    FontSize="14" 
+                                   FontAttributes="Bold"
                                    HorizontalTextAlignment="Center"/>
                         </VerticalStackLayout>
                     </Border>
 
                     <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource CardStyle}">
                         <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
-                            <Label Text="👤" FontSize="30" HorizontalOptions="Center"/>
+                            <Label Text="👤" FontSize="34" HorizontalOptions="Center"/>
                             <Label Text="Mi Perfil" 
-                                   TextColor="#333" 
+                                   TextColor="White" 
                                    FontSize="14" 
+                                   FontAttributes="Bold"
                                    HorizontalTextAlignment="Center"/>
                         </VerticalStackLayout>
                     </Border>
@@ -127,19 +152,4 @@
 
         </VerticalStackLayout>
     </ScrollView>
-
-    <ContentPage.Resources>
-        <Style x:Key="CardStyle" TargetType="Border">
-            <Setter Property="BackgroundColor" Value="White"/>
-            <Setter Property="StrokeShape" Value="RoundRectangle 20"/>
-            <Setter Property="StrokeThickness" Value="0"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="Shadow">
-                <Setter.Value>
-                    <Shadow Brush="Black" Offset="0,4" Radius="10" Opacity="0.05"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </ContentPage.Resources>
-
 </ContentPage>

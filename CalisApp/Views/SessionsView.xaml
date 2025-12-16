@@ -6,7 +6,7 @@
              x:DataType="viewmodel:SessionsViewModel"
              x:Class="CalisApp.Views.SessionsView"
              Title="Clases"
-             BackgroundColor="#F5F5F7">
+             BackgroundColor="#1a3029">
 
     <Grid RowDefinitions="Auto, *">
 
@@ -42,26 +42,28 @@
 
                         <Border.Style>
                             <Style TargetType="Border">
-                                <Setter Property="BackgroundColor" Value="White"/>
+                                <Setter Property="BackgroundColor" Value="#2d453d"/>
                                 <Style.Triggers>
                                     <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
-                                        <Setter Property="BackgroundColor" Value="#3377FF"/>
+                                        <Setter Property="BackgroundColor" Value="#facc43"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Border.Style>
 
                         <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+
                             <Label Text="{Binding DiaSemana}" 
                                    HorizontalOptions="Center" 
                                    FontSize="12"
+                                   FontAttributes="Bold"
                                    TextTransform="Uppercase">
                                 <Label.Style>
                                     <Style TargetType="Label">
-                                        <Setter Property="TextColor" Value="Gray"/>
+                                        <Setter Property="TextColor" Value="#8ca096"/>
                                         <Style.Triggers>
                                             <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
-                                                <Setter Property="TextColor" Value="#E6F0FF"/>
+                                                <Setter Property="TextColor" Value="#1a3029"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -74,10 +76,10 @@
                                    FontAttributes="Bold">
                                 <Label.Style>
                                     <Style TargetType="Label">
-                                        <Setter Property="TextColor" Value="#333"/>
+                                        <Setter Property="TextColor" Value="White"/>
                                         <Style.Triggers>
                                             <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
-                                                <Setter Property="TextColor" Value="White"/>
+                                                <Setter Property="TextColor" Value="#1a3029"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -89,7 +91,6 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-
         <CollectionView Grid.Row="1" 
                         ItemsSource="{Binding Sessions}"
                         Margin="0,10,0,0">
@@ -100,42 +101,48 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Session">
                     <Border StrokeShape="RoundRectangle 15"
-                            Stroke="#E5E7EB"
+                            Stroke="#4d6b5e"
                             StrokeThickness="1"
-                            BackgroundColor="White"
+                            BackgroundColor="#2d453d"
                             Padding="15"
                             Margin="15,5">
+
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="0,4" Radius="5" Opacity="0.3"/>
+                        </Border.Shadow>
+
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding Path=BindingContext.GoToDetailCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                                       CommandParameter="{Binding .}" />
                         </Border.GestureRecognizers>
 
-                        <Grid RowDefinitions="Auto, Auto, Auto, Auto" RowSpacing="5">
+                        <Grid RowDefinitions="Auto, Auto, Auto, Auto" RowSpacing="8">
+
                             <Grid Grid.Row="0" ColumnDefinitions="*, Auto">
-                                <Label Text="{Binding Title}" FontSize="16" TextColor="#111827" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
-                                <Label Grid.Column="1" Text="›" FontSize="24" TextColor="#9CA3AF" TranslationY="-4"/>
+                                <Label Text="{Binding Title}" FontSize="18" TextColor="White" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
+                                <Label Grid.Column="1" Text="›" FontSize="26" TextColor="#facc43" TranslationY="-6" FontAttributes="Bold"/>
                             </Grid>
 
-                            <Label Grid.Row="1" Text="{Binding Description}" FontSize="13" TextColor="#4B5563" MaxLines="2" LineBreakMode="TailTruncation"/>
+                            <Label Grid.Row="1" Text="{Binding Description}" FontSize="13" TextColor="#b0c4ba" MaxLines="2" LineBreakMode="TailTruncation"/>
 
-                            <Grid Grid.Row="2" ColumnDefinitions="Auto, 15, Auto" Margin="0,5">
-                                <HorizontalStackLayout Grid.Column="0" Spacing="4">
-                                    <Label Text="📅" FontSize="12"/>
-                                    <Label Text="{Binding Date, StringFormat='{0:dd MMM}'}" FontSize="13" TextColor="#4B5563" FontAttributes="Bold"/>
+                            <Grid Grid.Row="2" ColumnDefinitions="Auto, 20, Auto" Margin="0,5">
+                                <HorizontalStackLayout Grid.Column="0" Spacing="6">
+                                    <Label Text="📅" FontSize="14"/>
+                                    <Label Text="{Binding Date, StringFormat='{0:dd MMM}'}" FontSize="14" TextColor="#facc43" FontAttributes="Bold"/>
                                 </HorizontalStackLayout>
 
-                                <HorizontalStackLayout Grid.Column="2" Spacing="4">
-                                    <Label Text="🕒" FontSize="12"/>
-                                    <Label Text="{Binding Date, StringFormat='{0:HH:mm}'}" FontSize="13" TextColor="#4B5563" FontAttributes="Bold"/>
+                                <HorizontalStackLayout Grid.Column="2" Spacing="6">
+                                    <Label Text="🕒" FontSize="14"/>
+                                    <Label Text="{Binding Date, StringFormat='{0:HH:mm}'}" FontSize="14" TextColor="#facc43" FontAttributes="Bold"/>
                                 </HorizontalStackLayout>
                             </Grid>
 
                             <HorizontalStackLayout Grid.Row="3" Spacing="6">
-                                <Label Text="👤" FontSize="12"/>
-                                <Label FontSize="13" TextColor="#4B5563">
+                                <Label Text="👤" FontSize="14"/>
+                                <Label FontSize="13" TextColor="#8ca096">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="{Binding FreeSpots}" FontAttributes="Bold" TextColor="#2563EB"/>
+                                            <Span Text="{Binding FreeSpots}" FontAttributes="Bold" TextColor="White" FontSize="14"/>
                                             <Span Text=" lugares disponibles"/>
                                         </FormattedString>
                                     </Label.FormattedText>
@@ -148,5 +155,4 @@
         </CollectionView>
 
     </Grid>
-
 </ContentPage>

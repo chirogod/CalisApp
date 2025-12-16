@@ -5,26 +5,29 @@
              xmlns:viewmodel="clr-namespace:CalisApp.ViewModels"
              x:Class="CalisApp.Views.VideosView"
              Title="VideosView"
-             BackgroundColor="#F5F5F7">
+             BackgroundColor="#1a3029">
+
     <VerticalStackLayout>
 
-        <Border Margin="15, 10, 15, 0"
-                StrokeShape="RoundRectangle 10"
+        <Border Margin="20, 15, 20, 5"
+                StrokeShape="RoundRectangle 12"
                 StrokeThickness="1"
-                Stroke="#d3d3d3"
-                BackgroundColor="White">
+                Stroke="#4d6b5e"
+                BackgroundColor="#233831">
             <SearchBar Placeholder="Buscar videos, ejercicios..."
                        Text="{Binding SearchText}"
                        SearchCommand="{Binding SearchVideosCommand}"
-                       CancelButtonColor="#6B7280" 
-                       SearchIconColor="#111827"
-                       TextColor="#111827" 
-                       FontSize="16"/>
+                       CancelButtonColor="#facc43" 
+                       PlaceholderColor="#6b857d"
+                       TextColor="White" 
+                       FontSize="15"
+                       BackgroundColor="Transparent"/>
         </Border>
 
-        <ScrollView Orientation="Horizontal" Padding="15, 10, 15, 10" HorizontalScrollBarVisibility="Never">
+        <ScrollView Orientation="Horizontal" Padding="20, 15" HorizontalScrollBarVisibility="Never">
             <CollectionView ItemsSource="{Binding Categories}"
-                            SelectionMode="None">
+                            SelectionMode="None"
+                            HeightRequest="50">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
                 </CollectionView.ItemsLayout>
@@ -34,35 +37,34 @@
 
                         <Border StrokeShape="RoundRectangle 20"
                                 Padding="15, 8"
-                                StrokeThickness="0">
+                                StrokeThickness="0"
+                                VerticalOptions="Center">
 
                             <Border.Triggers>
                                 <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
-                                    <Setter Property="BackgroundColor" Value="#8B5CF6" />
+                                    <Setter Property="BackgroundColor" Value="#facc43" />
                                 </DataTrigger>
                                 <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="False">
-                                    <Setter Property="BackgroundColor" Value="#E5E7EB" />
+                                    <Setter Property="BackgroundColor" Value="#2d453d" />
                                 </DataTrigger>
                             </Border.Triggers>
 
                             <Label Text="{Binding Name}" 
                                    FontSize="14" 
                                    FontAttributes="Bold">
-
                                 <Label.Triggers>
                                     <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
-                                        <Setter Property="TextColor" Value="White" />
+                                        <Setter Property="TextColor" Value="#1a3029" />
                                     </DataTrigger>
                                     <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="False">
-                                        <Setter Property="TextColor" Value="#6B7280" />
+                                        <Setter Property="TextColor" Value="#8ca096" />
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
 
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:VideosViewModel}}, Path=SelectFilterCommand}"
-                                    CommandParameter="{Binding .}" />
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:VideosViewModel}}, Path=SelectFilterCommand}"
+                                                      CommandParameter="{Binding .}" />
                             </Border.GestureRecognizers>
 
                         </Border>
@@ -71,63 +73,61 @@
             </CollectionView>
         </ScrollView>
 
-
         <CollectionView Grid.Row="1" 
                         ItemsSource="{Binding Videos}"
-                        Margin="0,10,0,0">
-            
+                        Margin="0,5,0,0">
 
-            
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="15"/>
             </CollectionView.ItemsLayout>
-            
 
             <CollectionView.ItemTemplate>
-                
                 <DataTemplate x:DataType="models:Video">
-                    
-                    
+
                     <Border StrokeShape="RoundRectangle 15"
-                            Stroke="#E5E7EB"
+                            Stroke="#4d6b5e"
                             StrokeThickness="1"
-                            BackgroundColor="White"
-                            Padding="0" Margin="15, 0">
+                            BackgroundColor="#2d453d"
+                            Padding="0" 
+                            Margin="20, 0">
+
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="0,4" Radius="5" Opacity="0.3"/>
+                        </Border.Shadow>
+
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding Path=BindingContext.GoToDetailCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                                    CommandParameter="{Binding .}" />
+                                                  CommandParameter="{Binding .}" />
                         </Border.GestureRecognizers>
 
                         <VerticalStackLayout Spacing="0">
-                            
 
-                            <VerticalStackLayout Padding="15">
+                            <VerticalStackLayout Padding="15" Spacing="8">
 
                                 <FlexLayout Direction="Row" AlignContent="Start" AlignItems="Center" Wrap="Wrap">
-
-                                    <Border StrokeShape="RoundRectangle 5" 
-                                            BackgroundColor="Orange" 
-                                            Padding="8, 3" 
+                                    <Border StrokeShape="RoundRectangle 6" 
+                                            BackgroundColor="#facc43" 
+                                            StrokeThickness="0"
+                                            Padding="10, 4" 
                                             Margin="0,0,8,0">
-                                        <Label Text="Categoria" 
-                                               TextColor="#fff" 
-                                               FontSize="12" 
-                                               FontAttributes="Bold"/>
+                                        <Label Text="{Binding Category.Name}" 
+                                               TextColor="#1a3029" 
+                                               FontSize="11" 
+                                               FontAttributes="Bold"
+                                               TextTransform="Uppercase"/>
                                     </Border>
-
                                 </FlexLayout>
 
                                 <Label Text="{Binding Title}" 
                                        FontSize="18" 
-                                       TextColor="#111827" 
-                                       FontAttributes="Bold" 
-                                       Margin="0, 0, 0, 5" />
+                                       TextColor="White" 
+                                       FontAttributes="Bold" />
 
                                 <Label Text="{Binding Description}" 
-                                        FontSize="18" 
-                                        TextColor="#111827" 
-                                        FontAttributes="Italic" 
-                                        Margin="0, 0, 0, 5" />
+                                       FontSize="14" 
+                                       TextColor="#b0c4ba" 
+                                       MaxLines="2"
+                                       LineBreakMode="TailTruncation" />
                             </VerticalStackLayout>
                         </VerticalStackLayout>
                     </Border>

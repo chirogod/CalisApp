@@ -45,6 +45,7 @@ namespace CalisApp.ViewModels
                 if (_video != value)
                 {
                     _video = value;
+                    OnPropertyChanged(nameof(video));
 
                 }
             }

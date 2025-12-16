@@ -7,90 +7,113 @@
              x:DataType="viewmodel:SessionDetailViewModel"
              x:Class="CalisApp.Views.SessionDetailView"
              Title="Detalle de Clase"
-             BackgroundColor="#F0F0F0">
-
+             BackgroundColor="#1a3029">
 
     <ScrollView>
-        <VerticalStackLayout Spacing="15">
+        <VerticalStackLayout Spacing="20">
+
             <Border StrokeThickness="0"
-                    BackgroundColor="#0055FF"
-                    Padding="25,30,25,30"
+                    BackgroundColor="#233831"
+                    Padding="25,30,25,40"
                     Margin="0,0,0,10">
 
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="0,0,30,30"/>
                 </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="#facc43" Offset="0,4" Radius="15" Opacity="0.15"/>
+                </Border.Shadow>
 
                 <VerticalStackLayout Spacing="25">
 
                     <Grid RowDefinitions="*, Auto">
-                        <VerticalStackLayout VerticalOptions="Center" Grid.Row="0">
+                        <VerticalStackLayout VerticalOptions="Center" Grid.Row="0" Spacing="5">
                             <Label Text="{Binding Session.Title}" 
-                                   TextColor="White" 
-                                   FontSize="22" 
+                                   TextColor="#facc43" 
+                                   FontSize="26" 
                                    FontAttributes="Bold"/>
-                        </VerticalStackLayout>
-                        <VerticalStackLayout VerticalOptions="Center" Grid.Row="1">
+
                             <Label Text="{Binding Session.Description}" 
-                                   TextColor="White" 
-                                   FontSize="14" 
+                                   TextColor="#b0c4ba" 
+                                   FontSize="15" 
                                    FontAttributes="None"/>
                         </VerticalStackLayout>
-
                     </Grid>
-
 
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
 
-                        <Border BackgroundColor="#3377FF" 
-                                StrokeThickness="0" 
-                                Padding="15" Grid.Column="0"
+                        <Border BackgroundColor="#2d453d" 
+                                Stroke="#4d6b5e"
+                                StrokeThickness="1" 
+                                Padding="15" 
+                                Grid.Column="0"
                                 StrokeShape="RoundRectangle 15">
                             <VerticalStackLayout Spacing="5">
-                                <Label Text="Dia" TextColor="#E6F0FF" FontSize="12"/>
-                                <Label Text="{Binding Session.Date, StringFormat='{0:d}'}"  TextColor="White" FontSize="16" FontAttributes="Bold"/>
+                                <Label Text="Día" TextColor="#8ca096" FontSize="12" TextTransform="Uppercase"/>
+                                <Label Text="{Binding Session.Date, StringFormat='{0:dd MMM}'}"  
+                                       TextColor="White" 
+                                       FontSize="18" 
+                                       FontAttributes="Bold"/>
                             </VerticalStackLayout>
                         </Border>
 
-                        <Border BackgroundColor="#3377FF" 
-                                StrokeThickness="0" 
-                                Padding="15" Grid.Column="1"
+                        <Border BackgroundColor="#2d453d" 
+                                Stroke="#4d6b5e"
+                                StrokeThickness="1" 
+                                Padding="15" 
+                                Grid.Column="1"
                                 StrokeShape="RoundRectangle 15">
                             <VerticalStackLayout Spacing="5">
-                                <Label Text="Hora" TextColor="#E6F0FF" FontSize="12"/>
-                                <Label Text="{Binding Session.Date, StringFormat='{0:HH:mm}'}" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+                                <Label Text="Hora" TextColor="#8ca096" FontSize="12" TextTransform="Uppercase"/>
+                                <Label Text="{Binding Session.Date, StringFormat='{0:HH:mm}'}" 
+                                       TextColor="White" 
+                                       FontSize="18" 
+                                       FontAttributes="Bold"/>
                             </VerticalStackLayout>
                         </Border>
                     </Grid>
                 </VerticalStackLayout>
             </Border>
 
-            <Border BackgroundColor="White" Margin="15, 0" Padding="20" StrokeShape="RoundRectangle 10">
+            <Border BackgroundColor="#2d453d" 
+                    StrokeThickness="0"
+                    Margin="15, 0" 
+                    Padding="20" 
+                    StrokeShape="RoundRectangle 15">
+
                 <VerticalStackLayout Spacing="15">
-                    
+
                     <Grid ColumnDefinitions="*, Auto">
-                        <Label Text="Cupos Disponibles" FontAttributes="Bold" FontSize="Medium" Grid.Column="0" TextColor="black"/>
+                        <Label Text="Cupos Disponibles" FontAttributes="Bold" FontSize="16" Grid.Column="0" TextColor="White"/>
 
                         <Label Text="{Binding Session.Spots}" 
-                               FontSize="Medium"  TextColor="black"
-                               Grid.Column="1" />       
+                               FontSize="16"  
+                               TextColor="#facc43"
+                               FontAttributes="Bold"
+                               Grid.Column="1" />
                     </Grid>
 
                     <ProgressBar Progress="{Binding Session.EnrollPercent}" 
-                                 HeightRequest="5"
-                                 
-                                 Background="LightBlue"
-                                 ProgressColor="Blue" />
+                                 HeightRequest="8"
+                                 Background="#1a3029"
+                                 ProgressColor="#facc43" />
 
                     <Label Text="{Binding Session.FreeSpots, StringFormat='{0} lugares disponibles'}" 
-                           TextColor="#555555" FontSize="Small" />
+                           TextColor="#b0c4ba" 
+                           FontSize="13" 
+                           HorizontalOptions="End"/>
                 </VerticalStackLayout>
             </Border>
 
-            <Border BackgroundColor="White" Margin="15, 0" Padding="20" StrokeShape="RoundRectangle 15" HeightRequest="230">
+            <Border BackgroundColor="#2d453d" 
+                    StrokeThickness="0"
+                    Margin="15, 0" 
+                    Padding="20" 
+                    StrokeShape="RoundRectangle 15" 
+                    MinimumHeightRequest="200">
 
                 <Border.Shadow>
-                    <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.05"/>
+                    <Shadow Brush="Black" Offset="0,4" Radius="10" Opacity="0.2"/>
                 </Border.Shadow>
 
                 <VerticalStackLayout Spacing="15">
@@ -98,33 +121,36 @@
                     <Label Text="{Binding Session.Enrolled, StringFormat='Alumnos Anotados ({0})'}" 
                            FontAttributes="Bold" 
                            FontSize="16"
-                           TextColor="#111827"/>
+                           TextColor="White"/>
 
-                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding SessionUsers}" Spacing="8">
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding SessionUsers}" Spacing="12">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="modelsDto:SessionUserDataDto">
                                 <Grid ColumnDefinitions="45, *">
+
                                     <Border Grid.Column="0"
                                             HeightRequest="40"
                                             WidthRequest="40"
                                             StrokeShape="RoundRectangle 20"
-                                            StrokeThickness="0" 
-                                            BackgroundColor="#E6F0FF"
+                                            StrokeThickness="1" 
+                                            Stroke="#facc43"
+                                            BackgroundColor="#1a3029"
                                             HorizontalOptions="Center"
                                             VerticalOptions="Center">
 
                                         <Label Text="👤" 
-                                              HorizontalOptions="Center" 
-                                              VerticalOptions="Center" 
-                                              FontSize="18"/>
+                                               TextColor="White"
+                                               HorizontalOptions="Center" 
+                                               VerticalOptions="Center" 
+                                               FontSize="18"/>
                                     </Border>
 
                                     <Label Grid.Column="1"
                                            Text="{Binding FullName}"
-                                           TextColor="#374151"
+                                           TextColor="#e0e0e0"
                                            FontSize="15"
                                            VerticalOptions="Center"
-                                           Margin="10,0,0,0"/>
+                                           Margin="12,0,0,0"/>
                                 </Grid>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
@@ -133,31 +159,37 @@
                 </VerticalStackLayout>
             </Border>
 
-            <VerticalStackLayout Spacing="20" Padding="30">
+            <VerticalStackLayout Spacing="15" Padding="20,0,20,30">
 
                 <Button Text="Anotarse a esta Clase"
                         Command="{Binding EnrollCommand}"
-                        BackgroundColor="#007BFF"
-                        TextColor="White"
+                        BackgroundColor="#facc43"
+                        TextColor="#1a3029"
                         HeightRequest="55"
-                        CornerRadius="8"
+                        CornerRadius="12"
                         FontAttributes="Bold"
-                        Margin="15, 10, 15, 30"
-                        IsVisible="{Binding EnrollButtonVisible}" />
+                        FontSize="16"
+                        IsVisible="{Binding EnrollButtonVisible}">
+                    <Button.Shadow>
+                        <Shadow Brush="#facc43" Offset="0,0" Radius="10" Opacity="0.4"/>
+                    </Button.Shadow>
+                </Button>
 
                 <Button Text="Cancelar Inscripción"
                         Command="{Binding UnEnrollCommand}"
-                        BackgroundColor="Red"
-                        TextColor="White"
+                        BackgroundColor="#cf6679"
+                        TextColor="#1a3029"
                         HeightRequest="55"
-                        CornerRadius="8"
+                        CornerRadius="12"
                         FontAttributes="Bold"
-                        Margin="15, 10, 15, 30"
-                        IsVisible="{Binding UnEnrollButtonVisible}" />
+                        FontSize="16"
+                        IsVisible="{Binding UnEnrollButtonVisible}">
+                    <Button.Shadow>
+                        <Shadow Brush="Black" Offset="0,4" Radius="5" Opacity="0.3"/>
+                    </Button.Shadow>
+                </Button>
 
             </VerticalStackLayout>
-
-            
 
         </VerticalStackLayout>
     </ScrollView>
